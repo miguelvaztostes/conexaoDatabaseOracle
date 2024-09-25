@@ -1,0 +1,23 @@
+import cx_Oracle
+
+def connect_to_oracle():
+    try:
+        # Definir o DSN (Data Source Name)
+        dsn = cx_Oracle.makedsn("ip", porta, service_name="?")
+        
+        # Tente se conectar ao banco de dados usando usuário e senha
+        connection = cx_Oracle.connect(user="", password="", dsn=dsn)
+        
+        print("Conexão bem-sucedida ao Oracle Database.")
+        return connection
+    except cx_Oracle.DatabaseError as e:
+        error, = e.args
+        print(f"Erro ao conectar ao banco de dados: {error.message}")
+        return None
+
+# Teste a função de conexão
+conn = connect_to_oracle()
+
+if conn:
+    # Fechar a conexão quando não for mais necessária
+    conn.close()
